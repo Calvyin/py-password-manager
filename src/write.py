@@ -17,16 +17,13 @@ def store(user, password):  # function stores input creds into a file after encr
     try:
         currentId = int()
         newId = int()
-        with open("credentials.txt", "r+") as f:
+        with open("credentials.txt", "r") as f:
             content = f.read()
-            content = list(content)
             currentId = int(content[6])
             newId = currentId + 1
-            content[6] = (newId)
-            # new_content = content[:6] + str(newId) + content[7:]
-
-        # with open("credentials.txt", "r+") as f:
-           #  f.write(new_content)
+            new_content = content[:6] + str(newId) + content[7:]
+        with open("credentials.txt", "r+") as f:
+            f.write(new_content)
 
     except:
         print("Indexing error failed to get ID or ID does not exist")
@@ -34,7 +31,7 @@ def store(user, password):  # function stores input creds into a file after encr
         pass
 
     try:
-        with open("credentials.txt", "r+") as f:
+        with open("credentials.txt", "a") as f:
             f.write(f"ID: {int(newId)}\n")
             f.write(f"Username: {str(user)}\n")
             f.write(f"Password: {str(password)}\n")
