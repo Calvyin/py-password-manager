@@ -1,46 +1,56 @@
 import os
 import json
 
+n = 0  # Global variable
+
 
 def create_file():
     try:
         open("credentials.txt", "x")
-    finally:
+    except:
         print("File Creation error occurred")
+        print("File either exists or program does not have access to directory")
+    finally:
+        pass
 
 
 def store(user, password):   # function stores input creds into a file after encryption
     print("Storing credentials")
+    global n
+    n += 1
+
     try:
-        f = open("credentials.txt", "a")
-        f.write("Entry: ")
-        f.write(user)
-        f.write(password)
-    finally:
+        with open("credentials.txt", "a") as f:
+            f.write(f"Entry: {int(n)}\n")
+            f.write(f"Username: {str(user)}\n")
+            f.write(f"Password: {str(password)}\n")
+            print("Data successfully stored")
+    except:
         print("File handling error occurred")
+    finally:
+        pass
 
 
-user = str()
-password = str()
 print("Enter your username")
-input(user)
+user = input()
+print(type(user))
 print("Enter your password")
-input(password)
+password = input()
+print(type(password))
 
 path = 'credentials.txt'
 isExist = os.path.exists(path)
+print(isExist)
 
-if isExist is False:
+if isExist is True:
     print("Entering data into file...")
     store(user, password)
-    print("Data successfully stored")
 
-elif isExist is True:
+elif isExist is False:
     print("Creating new file...")
     create_file()
     print("Entering data into file...")
     store(user, password)
-    print("Data successfully stored")
 
 else:
     print("Critical error occurred isExist function most likely failed to run")
