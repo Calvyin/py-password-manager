@@ -1,12 +1,10 @@
 import os
-import json
-
-n = 0  # Global variable
 
 
-def create_file():
+def createFile():
     try:
-        open("credentials.txt", "x")
+        with open("credentials.txt", "x") as f:
+            f.write(f"IDs : 0\n")
     except:
         print("File Creation error occurred")
         print("File either exists or program does not have access to directory")
@@ -14,14 +12,27 @@ def create_file():
         pass
 
 
-def store(user, password):   # function stores input creds into a file after encryption
+def store(user, password):  # function stores input creds into a file after encryption
     print("Storing credentials")
-    global n
-    n += 1
+    try:
+        currentId = int()
+        newId = int()
+        with open("credentials.txt", "r+") as f:
+            content = f.read()
+            currentId = int(content[6])
+            newId = currentId + 1
+            new_content = content[:6] + str(newId)
+        with open("credentials.txt", "w") as f:
+            f.write(new_content)
+
+    except:
+        print("Indexing error failed to get ID or ID does not exist")
+    finally:
+        pass
 
     try:
-        with open("credentials.txt", "a") as f:
-            f.write(f"Entry: {int(n)}\n")
+        with open("credentials.txt", "r+") as f:
+            f.write(f"ID: {int(newId)}\n")
             f.write(f"Username: {str(user)}\n")
             f.write(f"Password: {str(password)}\n")
             print("Data successfully stored")
@@ -40,7 +51,7 @@ print(type(password))
 
 path = 'credentials.txt'
 isExist = os.path.exists(path)
-print(isExist)
+print(isExist) # debug
 
 if isExist is True:
     print("Entering data into file...")
@@ -48,7 +59,7 @@ if isExist is True:
 
 elif isExist is False:
     print("Creating new file...")
-    create_file()
+    createFile()
     print("Entering data into file...")
     store(user, password)
 
