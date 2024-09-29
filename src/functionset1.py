@@ -4,10 +4,10 @@ from cryptography.fernet import Fernet
 def generate_key():
     # generate key and store locally
     key = Fernet.generate_key()
+    key = key.decode()
     print(key)
     with open("fileData/key.key", "x") as f:
         f.write(str(key))
-    key = key.decode()
     return key
 
 

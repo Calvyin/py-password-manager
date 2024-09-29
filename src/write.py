@@ -63,10 +63,11 @@ def encrypt():
         else:
             print("Unable to determine existence of key")
 
-        with open("fileData/credentials.txt", "r+") as f: # encrypting file data
-            rawContent = list(f.read())
+        with open("fileData/credentials.txt", "w+") as f: # encrypting file data
+            rawContent = f.read()
             encContent = fs.encrypt_data(rawContent, key)
             f.write(str(encContent))
+            f.write("\n")
         print("Data successfully encrypted and stored")
     except Exception as e:
         print(f"Failed to encrypt data: {e}")
