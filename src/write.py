@@ -95,7 +95,7 @@ elif isExist is False:
     print("Creating new file...")
     createFile()
     print("Entering data into file...")
-    store(user, password)
+    store(user, password, web)
     encrypt()
 
 else:
