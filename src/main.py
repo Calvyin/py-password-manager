@@ -82,6 +82,7 @@ def decrypt(idNo):  # decrypts data and outputs it to console
             key = str(f.read())
 
         with open("fileData/credentials.txt", "r") as f:
+            idNo = int(idNo)
             content = f.readlines()
             encContent = content[idNo]
             rawContent = fs.decrypt_data(encContent, key)
@@ -114,5 +115,6 @@ elif isExist is False:
 else:
     print("Critical error occurred isExist function most likely failed to run")
 
-idNo = input("Enter the Credentials ID you wish to read: ")
+idNo = int(input("Enter the Credentials ID you wish to read: "))
+idNo -= 1
 decrypt(idNo)
