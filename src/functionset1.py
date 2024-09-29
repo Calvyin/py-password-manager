@@ -7,6 +7,7 @@ def generate_key():
     print(key)
     with open("fileData/key.key", "x") as f:
         f.write(str(key))
+    key = key.decode()
     return key
 
 
@@ -20,7 +21,9 @@ def encrypt_data(data, key):
 def load_key():
     # load key to ram
     with open('fileData/key.key', 'rb') as key_file:
-        return key_file.read()
+        key = key_file.read()
+    key = key.decode()
+    return key
 
 
 def decrypt_data(encrypted_data, key):
