@@ -76,23 +76,30 @@ def encrypt():
     finally:
         pass
 
-def decrypt(idNo): # decrypts data and outputs it to console
-    try:
-        with open("fileData/credentials.txt", "r+") as f:
-            content = f.read()
-            encContent = content
 
-            fs.decrypt_data()
+def decrypt(idNo):  # decrypts data and outputs it to console
+    try:
+        print("Decrypting data...")
+        with open("fileData/key.key", "r") as f:
+            key = str(f.read())
+
+        with open("fileData/credentials.txt", "r") as f:
+            content = f.readlines()
+            encContent = content[idNo]
+            rawContent = fs.decrypt_data(encContent, key)
+            print(rawContent)
+    except Exception as e:
+        print(f"Failed to decrypt: {e}")
+    finally:
+        pass
 
 
 web = input("Enter the website: ")
 user = input("Enter your username: ")
 password = input("Enter your password: ")
-# print(type(password)) # debug
 
 path = 'fileData/credentials.txt'
 isExist = os.path.exists(path)
-# print(isExist) # debug
 
 if isExist is True:
     print("Entering data into file...")
@@ -108,3 +115,6 @@ elif isExist is False:
 
 else:
     print("Critical error occurred isExist function most likely failed to run")
+
+idNo = input("Enter the Credentials ID you wish to read: ")
+decrypt(idNo)
