@@ -37,7 +37,6 @@ def store(user, password, web):  # function stores input creds into a file after
 
     try:
         with open("fileData/credentials.txt", "a") as f:
-            f.write("\n")
             f.write(f"ID: {int(newId)}\n")
             f.write(f"Website: {str(web)}\n")
             f.write(f"Username: {str(user)}\n")
@@ -68,7 +67,6 @@ def encrypt():
         with open("fileData/credentials.txt", "w+") as f:  # encrypting file data
             rawContent = f.read()
             encContent = fs.encrypt_data(rawContent, key)
-            f.write("\n")
             f.write(str(encContent))
         print("Data successfully encrypted and stored")
     except Exception as e:
