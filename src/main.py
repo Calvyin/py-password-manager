@@ -37,7 +37,7 @@ def store(user, password, web):  # function stores input creds into a file after
 
     try:
         with open("fileData/credentials.txt", "a") as f:
-            f.write(f"ID: {int(newId)}\n")
+            f.write(f"ID: {str(newId)}\n")
             f.write(f"Website: {str(web)}\n")
             f.write(f"Username: {str(user)}\n")
             f.write(f"Password: {str(password)}\n")
