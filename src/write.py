@@ -16,7 +16,7 @@ def createFile():  # function creates two files one for storing IdNo and other f
         pass
 
 
-def store(user, password):  # function stores input creds into a file after encryption
+def store(user, password, web):  # function stores input creds into a file after encryption
     print("Storing credentials...")
     try:
         currentId = int()
@@ -39,6 +39,7 @@ def store(user, password):  # function stores input creds into a file after encr
         with open("fileData/credentials.txt", "a") as f:
             f.write("\n")
             f.write(f"ID: {int(newId)}\n")
+            f.write(f"Website: {str(web)}\n")
             f.write(f"Username: {str(user)}\n")
             f.write(f"Password: {str(password)}\n")
             print("Data successfully stored")
@@ -47,27 +48,28 @@ def store(user, password):  # function stores input creds into a file after encr
     finally:
         pass
 
+
 def encrypt():
     print("Attempting to encrypt data...")
     try:
         path = 'fileData/key.key'
         isExist = os.path.exists(path)
-        if isExist is False: # checking if key exists
+        if isExist is False:  # checking if key exists
             key = fs.generate_key()
             print("Generated new key")
-            print(key) # debug
+            # print(key)  # debug
         elif isExist is True:
             key = fs.load_key()
             print("Key found\n")
-            print(key) # debug
+            # print(key)  # debug
         else:
             print("Unable to determine existence of key")
 
-        with open("fileData/credentials.txt", "w+") as f: # encrypting file data
+        with open("fileData/credentials.txt", "w+") as f:  # encrypting file data
             rawContent = f.read()
             encContent = fs.encrypt_data(rawContent, key)
-            f.write(str(encContent))
             f.write("\n")
+            f.write(str(encContent))
         print("Data successfully encrypted and stored")
     except Exception as e:
         print(f"Failed to encrypt data: {e}")
@@ -75,11 +77,9 @@ def encrypt():
         pass
 
 
-print("Enter your username")
-user = input()
-# print(type(user)) # debug
-print("Enter your password")
-password = input()
+web = input("Enter the website: ")
+user = input("Enter your username: ")
+password = input("Enter your password: ")
 # print(type(password)) # debug
 
 path = 'fileData/credentials.txt'
@@ -88,7 +88,7 @@ isExist = os.path.exists(path)
 
 if isExist is True:
     print("Entering data into file...")
-    store(user, password)
+    store(user, password, web)
     encrypt()
 
 elif isExist is False:
