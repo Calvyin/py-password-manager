@@ -1,3 +1,1 @@
-write a function that dynamically creates new indexes for each time credentials are input and store them in a file in chronographic order
-take all input from UI and run everything via UI
-temp run via CLI
+write a delete entry function that changes order of ID back to chronological order
