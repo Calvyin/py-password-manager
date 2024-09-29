@@ -5,7 +5,7 @@ def generate_key():
     # generate key and store locally
     key = Fernet.generate_key()
     key = key.decode()
-    print(key)
+    # print(key)
     with open("fileData/key.key", "x") as f:
         f.write(str(key))
     return key
@@ -15,6 +15,7 @@ def encrypt_data(data, key):
     # encrypting function
     fernet = Fernet(key)
     encrypted_data = fernet.encrypt(data.encode())
+    encrypted_data = encrypted_data.decode()
     return encrypted_data
 
 

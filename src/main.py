@@ -76,6 +76,14 @@ def encrypt():
     finally:
         pass
 
+def decrypt(idNo): # decrypts data and outputs it to console
+    try:
+        with open("fileData/credentials.txt", "r+") as f:
+            content = f.read()
+            encContent = content
+
+            fs.decrypt_data()
+
 
 web = input("Enter the website: ")
 user = input("Enter your username: ")
